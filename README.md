@@ -28,28 +28,27 @@ when using this url, remove the ending `_Љ` so the correct path is:
 ## Examples
 
 ## PRINT FOLDER
-
 ### Print a total of 70 random stickers from a folder of JPGs:
 
 `python stickers.py printfolder file/path/to/stickers/whiterose_caffeine_pack --printer-model QL-800 --printer-url usb://0x04f9:0x209b --sticker-count 70`
 
 ### Print a total of 70 random stickers from a folder of JPGs
-### Print at least 10 kary-mullis-pcr-1.jpg
-### (will print a total of 70 stickers, 60 random from a folder, and 10 of them will be kary-mullis-pcr-1.jpg):
+* Print at least 10 kary-mullis-pcr-1.jpg
+* (will print a total of 70 stickers, 60 random from a folder, and 10 of them will be kary-mullis-pcr-1.jpg):
 
 `python stickers.py printfolder stickers/whiterose_caffeine_pack --printer-model QL-800 --printer-url usb://0x04f9:0x209b --sticker-count 70 --print-at-least 10 path/to/stickers/custom/kary-mullis-pcr-1.jpg 10  path/to/stickers/custom/mike-yeadon-gov-virus-lie.jpg --print-extra 5 path/to/stickers/custom/redpillsxyz-sticker21.jpg 5 path/to/stickers/custom/jointhewhiterose2-qr.jpg`
 
 ### Print a total of 80 random stickers from a folder of JPGs to a QL-800
-### Print at least 10 kary-mullis-pcr-1.jpg
-### Print at least 10 mike-yeadon-gov-virus-lie.jpg
-### Print an extra 5 redpillsxyz-sticker21.jpg
-### Print an extra 5 jointhewhiterose2-qr.jpg
-### (will print a total of 80 stickers, 50 random from a folder, and 10 of them will be kary-mullis-pcr-1.jpg, 10 of them will be mike-yeadon-gov-virus-lie.jpg, 5 extra redpillsxyz-sticker21.jpg, 5 extra jointhewhiterose2-qr.jpg):
+* Print at least 10 kary-mullis-pcr-1.jpg
+* Print at least 10 mike-yeadon-gov-virus-lie.jpg
+* Print an extra 5 redpillsxyz-sticker21.jpg
+* Print an extra 5 jointhewhiterose2-qr.jpg
+* (will print a total of 80 stickers, 50 random from a folder, and 10 of them will be kary-mullis-pcr-1.jpg, 10 of them will be mike-yeadon-gov-virus-lie.jpg, 5 extra redpillsxyz-sticker21.jpg, 5 extra jointhewhiterose2-qr.jpg):
 
 `python stickers.py printfolder stickers/whiterose_caffeine_pack --printer-model QL-800 --printer-url usb://0x04f9:0x209b --sticker-count 70 --print-at-least 10 path/to/stickers/custom/kary-mullis-pcr-1.jpg 10  path/to/stickers/custom/mike-yeadon-gov-virus-lie.jpg --print-extra 5 /Users/michael/bin/redpills-xyz/stickers/custom/redpillsxyz-sticker21.jpg 5 path/to/stickers/custom/jointhewhiterose2-qr.jpg`
 
 ## PRINT IMAGES
 
-### Print a total of 15 random stickers with five specific stickers:
+* Print a total of 15 random stickers with five specific stickers:
 
-python stickers.py printimages path/to/stickers/custom/redpillsxyz-sticker21.jpg path/to/stickers/custom/mike-yeadon-gov-virus-lie.jpg path/to/stickers/custom/jointhewhiterose2-qr.jpg path/to/stickers/custom/kary-mullis-pcr-1.jpg path/to/stickers/custom/BreathingBacteriaKeepsMeSafe.jpg --printer-model QL-800 --printer-url usb://0x04f9:0x209b --sticker-count 15
+`python stickers.py printimages path/to/stickers/custom/redpillsxyz-sticker21.jpg path/to/stickers/custom/mike-yeadon-gov-virus-lie.jpg path/to/stickers/custom/jointhewhiterose2-qr.jpg path/to/stickers/custom/kary-mullis-pcr-1.jpg path/to/stickers/custom/BreathingBacteriaKeepsMeSafe.jpg --printer-model QL-800 --printer-url usb://0x04f9:0x209b --sticker-count 15`
