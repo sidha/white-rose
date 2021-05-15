@@ -28,17 +28,20 @@ when using this url, remove the ending `_Љ` so the correct path is:
 ## Examples
 
 ## PRINT FOLDER
-### Print a total of 70 random stickers from a folder of JPGs:
+### Print a total of 70 random stickers from a folder of JPGs to a QL-800:
+* Print 70 random stickers from a folder
 
 `python stickers.py printfolder file/path/to/stickers/whiterose_caffeine_pack --printer-model QL-800 --printer-url usb://0x04f9:0x209b --sticker-count 70`
 
 ### Print a total of 70 random stickers from a folder of JPGs to a QL-700:
+* Print 60 random stickers from a folder
 * Print at least 10 kary-mullis-pcr-1.jpg
 * (will print a total of 70 stickers, 60 random from a folder, and 10 of them will be kary-mullis-pcr-1.jpg):
 
 `python stickers.py printfolder stickers/whiterose_caffeine_pack --printer-model QL-700 --printer-url usb://0x04f9:0x209b --sticker-count 70 --print-at-least 10 path/to/stickers/custom/kary-mullis-pcr-1.jpg`
 
 ### Print a total of 80 random stickers from a folder of JPGs to a QL-800:
+* Print 50 random stickers from a folder
 * Print at least 10 kary-mullis-pcr-1.jpg
 * Print at least 10 mike-yeadon-gov-virus-lie.jpg
 * Print an extra 5 redpillsxyz-sticker21.jpg
