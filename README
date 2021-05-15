@@ -1,0 +1,2 @@
+python stickers.py printjob ./stickers --sticker-pack-name whiterose_fullshuffled --sticker-count 25 --sticker-size mini
+python stickers.py printjob ./stickers --sticker-pack-name whiterose_fullshuffled --sticker-count 25 --sticker-size regular
