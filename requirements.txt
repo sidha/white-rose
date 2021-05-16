@@ -1,1 +1,2 @@
+pyusb
 brother_ql
