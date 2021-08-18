@@ -1,12 +1,24 @@
 ## Get Started
 
-### Install 
+### Linux/macOS Install 
 
 ```
 > git clone https://github.com/sidha/white-rose.git stickers
 > cd stickers
 > python3 -m venv venvstickers
 > source venvstickers/bin/activate
+> pip install -U pip
+> pip install -r requirements.txt
+```
+
+### Windows Install
+
+Follow instructions here to install venv on Windows:
+https://www.c-sharpcorner.com/article/steps-to-set-up-a-virtual-environment-for-python-development/
+
+then:
+
+```
 > pip install -U pip
 > pip install -r requirements.txt
 ```
