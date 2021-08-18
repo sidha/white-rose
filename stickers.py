@@ -177,6 +177,10 @@ class PrintFolder(object):
             print('dry_run sorted_array: {} stickers'.format(len(sorted_array)))
 
     def _printfolder_images(self, images, sticker_count, sticker_size, printer_model, printer_url, print_at_least=None, print_extra=None):
+        if len(images) == 0:
+            print('No images found. Did you enter an incorrect path?')
+            return
+
         remaining_count = sticker_count
         printed = 0
         it = None
