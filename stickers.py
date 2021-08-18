@@ -99,9 +99,14 @@ def sanitize_filename(filepath):
 
 
 def build_options(filepath, options):
+    print('filepath: {}'.format(filepath))
+
     components = filepath.split("/")
+    print('components: {}'.format(components))
     filename = components[-1]
+    print('filename: {}'.format(filename))
     folder_name = components[-2]
+    print('folder_name: {}'.format(folder_name))
     options['filepath'] = filepath
     options['filename'] = filename
     options['folder_name'] = folder_name
