@@ -101,7 +101,9 @@ def sanitize_filename(filepath):
 def build_options(filepath, options):
     print('filepath: {}'.format(filepath))
 
-    components = filepath.split("/")
+    filepath = os.path.normpath(filepath)
+    filepath.split(os.sep)
+    components = filepath.split(os.sep) #filepath.split("/")
     print('components: {}'.format(components))
     filename = components[-1]
     print('filename: {}'.format(filename))
