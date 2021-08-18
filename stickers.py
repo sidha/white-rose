@@ -102,6 +102,7 @@ def build_options(filepath, options):
     print('filepath: {}'.format(filepath))
 
     filepath = os.path.normpath(filepath)
+    filepath = os.path.abspath(filepath)
     filepath.split(os.sep)
     components = filepath.split(os.sep) #filepath.split("/")
     print('components: {}'.format(components))
