@@ -1,14 +1,15 @@
 ## Get Started
 
 ### All Platforms -- PyUSB
-    The network backend doesn't support reading back the printer state, currently. Failure such as wrong label type or end of label roll reached won't be detected by this software.
-    The label printer should show up automatically as /dev/usb/lp0 when connected. Please check the ownership (user, group) of this file to be able to print as a regular user. Consider setting up a udev .rules file.
-    PyUSB is a Python wrapper allowing to implement USB communication in userspace.
-        On Linux: install libusb1 as offered by your distribution: sudo apt-get install libusb-1.0-0 (Ubuntu, Debian), sudo zyppe in libusb-1_0-0 (OpenSUSE), sudo pacman -S libusb (Arch).
-    PyUSB is a Python wrapper allowing to implement USB communication in userspace.
-        On Mac OS: Install Homebrew and then install libusb1 using: brew install libusb.
-    PyUSB is a Python wrapper allowing to implement USB communication in userspace.
-        On Windows: download libusb-win32-devel-filter-1.2.6.0.exe from sourceforge and install it. After installing, you have to use the "Filter Wizard" to setup a "device filter" for the label printer.
+-  The network backend doesn't support reading back the printer state, currently. Failure such as wrong label type or end of label roll reached won't be detected by this software.
+-  The label printer should show up automatically as /dev/usb/lp0 when connected. Please check the ownership (user, group) of this file to be able to print as a regular user. Consider setting up a udev .rules file.
+### PyUSB is a Python wrapper allowing to implement USB communication in userspace.
+
+On Linux: install libusb1 as offered by your distribution: `sudo apt-get install libusb-1.0-0` (Ubuntu, Debian), `sudo zyppe in libusb-1_0-0` (OpenSUSE), `sudo pacman -S libusb` (Arch).
+
+On Mac OS: Install Homebrew and then install libusb1 using: `brew install libusb`.
+
+On Windows: download `libusb-win32-devel-filter-1.2.6.0.exe` from https://sourceforge.net/projects/libusb-win32/files/libusb-win32-releases/1.2.6.0/ and install it. After installing, you have to use the "Filter Wizard" to setup a "device filter" for the label printer.`
 
 ### Linux/macOS Install
 
