@@ -1,8 +1,8 @@
 ## Get Started
 
-### All Platforms -- PyUSB
 -  The network backend doesn't support reading back the printer state, currently. Failure such as wrong label type or end of label roll reached won't be detected by this software.
--  The label printer should show up automatically as /dev/usb/lp0 when connected. Please check the ownership (user, group) of this file to be able to print as a regular user. Consider setting up a udev .rules file.
+-  (Linux) The label printer should show up automatically as /dev/usb/lp0 when connected. Please check the ownership (user, group) of this file to be able to print as a regular user. Consider setting up a udev .rules file.
+
 ### PyUSB is a Python wrapper allowing to implement USB communication in userspace.
 
 On Linux: install libusb1 as offered by your distribution: `sudo apt-get install libusb-1.0-0` (Ubuntu, Debian), `sudo zyppe in libusb-1_0-0` (OpenSUSE), `sudo pacman -S libusb` (Arch).
