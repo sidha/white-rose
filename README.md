@@ -98,3 +98,6 @@ The library that this script depends on supports the following printers, but the
 * Print a total of 15 random stickers with five specific stickers:
 
 `python stickers.py printimages path/to/stickers/custom/redpillsxyz-sticker21.jpg path/to/stickers/custom/mike-yeadon-gov-virus-lie.jpg path/to/stickers/custom/jointhewhiterose2-qr.jpg path/to/stickers/custom/kary-mullis-pcr-1.jpg path/to/stickers/custom/BreathingBacteriaKeepsMeSafe.jpg --printer-model QL-800 --printer-url usb://0x04f9:0x209b --sticker-count 15`
+
+* Print individual sticker 
+python stickers.py printimages Folder\LittleSusie.cleaned.jpg --printer-url usb://0x04f9:0x209b --printer-model QL-800 --sticker-count 2
