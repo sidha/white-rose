@@ -17,6 +17,15 @@ def get_all_values(d):
     else:
         yield d 
 
+def get_pilimage(filepath):
+    pilimage = None
+    from PIL import Image
+    try:
+        pilimage = Image.open(filepath)
+    except OSError as e:
+        print(e.errno)
+
+    return pilimage
 class Main(object):
     def __init__(self):
         parser = argparse.ArgumentParser(
@@ -133,11 +142,11 @@ class PrintFolder(object):
         parser.add_argument('--printer-model', dest='printer_model', help='name of the Brother printer i.e.: QL-800')
         parser.add_argument('--file-extension', dest='file_extension', help='walk dirs to find these types, default is jpg')
         parser.add_argument('--sticker-count', dest='sticker_count', help='number of stickers to print in job')
-        parser.add_argument('--sticker-size', dest='sticker_size', help='regular or mini')
+        parser.add_argument('--disable-autorotate', dest='disable_autorotate', action='store_true', help='wide stickers are printed 90 degrees CCW by default')
         parser.add_argument('--print-at-least', nargs='*', dest='print_at_least', help='print at least this number of this sticker')
         parser.add_argument('--print-extra', nargs='*', dest='print_extra', help='print extra this number of this sticker')
         parser.set_defaults(dry_run=False)
-        parser.set_defaults(sticker_size='regular')
+        parser.set_defaults(disable_autorotate=False)
         parser.set_defaults(file_extension='jpg')
         args = parser.parse_args(sys.argv[2:])
         print('Running PrintFolder.start, args: {}'.format(repr(args)))
@@ -180,11 +189,11 @@ class PrintFolder(object):
         sorted_array = sorted(printfolder_files, key=lambda x: x['filename'], reverse=False)
         if args.dry_run is False:
             if args.file_extension == 'jpg':
-                self._printfolder_images(sorted_array, int(args.sticker_count), args.sticker_size, args.printer_model, args.printer_url, args.print_at_least, args.print_extra)
+                self._printfolder_images(sorted_array, int(args.sticker_count), args.disable_autorotate, args.printer_model, args.printer_url, args.print_at_least, args.print_extra)
         else:
             print('dry_run sorted_array: {} stickers'.format(len(sorted_array)))
 
-    def _printfolder_images(self, images, sticker_count, sticker_size, printer_model, printer_url, print_at_least=None, print_extra=None):
+    def _printfolder_images(self, images, sticker_count, disable_autorotate, printer_model, printer_url, print_at_least=None, print_extra=None):
         if len(images) == 0:
             print('No images found. Did you enter an incorrect path?')
             return
@@ -207,7 +216,16 @@ class PrintFolder(object):
                     printed = printed + 1
                     remaining_count = sticker_count - printed
                     print('printing {} of {}({} remaining): {}'.format(printed, sticker_count, remaining_count, imagefilepath))
-                    os.system("brother_ql --model {} --backend pyusb --printer {} print -d --label 62 {}".format(printer_model, printer_url, imagefilepath))
+
+                    pilimage = get_pilimage(imagefilepath)
+                    if disable_autorotate is False:
+                        # if wide sticker
+                        if pilimage.size[0] > pilimage.size[1]:
+                            os.system("brother_ql --model {} --backend pyusb --printer {} print -d --label 62 --rotate 90 {}".format(printer_model, printer_url, imagefilepath))
+                        else:
+                            os.system("brother_ql --model {} --backend pyusb --printer {} print -d --label 62 {}".format(printer_model, printer_url, imagefilepath))
+                    else:
+                        os.system("brother_ql --model {} --backend pyusb --printer {} print -d --label 62 {}".format(printer_model, printer_url, imagefilepath))
 
         print('_printfolder_images remaining_count after repeats {}'.format(remaining_count))
 
@@ -221,8 +239,16 @@ class PrintFolder(object):
             printed = printed + 1
             remaining_count = sticker_count - printed
             print('printing {} of {}({} remaining): {}'.format(printed, sticker_count, remaining_count, random_sticker["filepath"]))
-            os.system("brother_ql --model {} --backend pyusb --printer {} print -d --label 62 {}".format(printer_model, printer_url, random_sticker["filepath"]))
-            # os.system("brother_ql --model QL-800 --backend pyusb --printer usb://0x04f9:0x209b print -d --label 62 {}".format(random_sticker["filepath"]))
+
+            pilimage = get_pilimage(random_sticker["filepath"])
+            if disable_autorotate is False:
+                # if wide sticker
+                if pilimage.size[0] > pilimage.size[1]:
+                    os.system("brother_ql --model {} --backend pyusb --printer {} print -d --label 62 --rotate 90 {}".format(printer_model, printer_url, random_sticker["filepath"]))
+                else:
+                    os.system("brother_ql --model {} --backend pyusb --printer {} print -d --label 62 {}".format(printer_model, printer_url, random_sticker["filepath"]))
+            else:
+                os.system("brother_ql --model {} --backend pyusb --printer {} print -d --label 62 {}".format(printer_model, printer_url, random_sticker["filepath"]))
 
         # extra stickers beyond sticker_count
 
@@ -238,10 +264,15 @@ class PrintFolder(object):
                 for x in range(count):
                     printed = printed + 1
                     print('printing {} of {}: {}'.format(printed, sticker_count, imagefilepath))
-                    os.system("brother_ql --model {} --backend pyusb --printer {} print -d --label 62 {}".format(printer_model, printer_url, imagefilepath))
-                    # os.system("brother_ql --model QL-800 --backend pyusb --printer usb://0x04f9:0x209b print -d --label 62 {}".format(imagefilepath))
-
-
+                    pilimage = get_pilimage(imagefilepath)
+                    if disable_autorotate is False:
+                        # if wide sticker
+                        if pilimage.size[0] > pilimage.size[1]:
+                            os.system("brother_ql --model {} --backend pyusb --printer {} print -d --label 62 --rotate 90 {}".format(printer_model, printer_url, imagefilepath))
+                        else:
+                            os.system("brother_ql --model {} --backend pyusb --printer {} print -d --label 62 {}".format(printer_model, printer_url, imagefilepath))
+                    else:
+                        os.system("brother_ql --model {} --backend pyusb --printer {} print -d --label 62 {}".format(printer_model, printer_url, imagefilepath))
 class PrintImages(object):
     def __init__(self):
         print('PrintImages init')
@@ -258,9 +289,9 @@ class PrintImages(object):
         parser.add_argument('--printer-model', dest='printer_model', help='name of the Brother printer i.e.: QL-800')
         parser.add_argument('--file-extension', dest='file_extension', help='walk dirs to find these types, default is jpg')
         parser.add_argument('--sticker-count', dest='sticker_count', help='number of stickers to print in job')
-        parser.add_argument('--sticker-size', dest='sticker_size', help='regular or mini')
+        parser.add_argument('--disable-autorotate', dest='disable_autorotate', action='store_true', help='wide stickers are printed 90 degrees CCW')
         parser.set_defaults(dry_run=False)
-        parser.set_defaults(sticker_size='regular')
+        parser.set_defaults(disable_autorotate=False)
         parser.set_defaults(file_extension='jpg')
         args = parser.parse_args(sys.argv[2:])
         print('Running PrintImages.start, args: {}'.format(repr(args)))
@@ -290,19 +321,25 @@ class PrintImages(object):
         sorted_array = sorted(printimages_files, key=lambda x: x['filename'], reverse=False)
         if args.dry_run is False:
             if args.file_extension == 'jpg':
-                self._printimages_images(sorted_array, int(args.sticker_count), args.sticker_size, args.printer_model, args.printer_url)
+                self._printimages_images(sorted_array, int(args.sticker_count), args.disable_autorotate, args.printer_model, args.printer_url)
         else:
             print('dry_run sorted_array: {} stickers'.format(len(sorted_array)))
 
-    def _printimages_images(self, images, sticker_count, sticker_size, printer_model, printer_url):
-        # print('_printimages_images images {}'.format(images))
+    def _printimages_images(self, images, sticker_count, disable_autorotate, printer_model, printer_url):
+        print('_printimages_images disable_autorotate {}'.format(disable_autorotate))
         # print('_printimages_images sticker_pack_name {}'.format(sticker_pack_name))
         for x in range(sticker_count):
             random_sticker = images[randrange(len(images))]
             print('printing {} of {}({} remaining): {}'.format(x+1, sticker_count, sticker_count - (x+1), random_sticker["filepath"]))
-            if sticker_size == "mini":
-                os.system("brother_ql --model {} --backend pyusb --printer {} print -d --label 62 --rotate 90 {}".format(printer_model, printer_url, random_sticker["filepath"]))
-            elif sticker_size == "regular":
+            pilimage = get_pilimage(random_sticker["filepath"])
+            print('pilimage.size: {}'.format(pilimage.size))
+            if disable_autorotate is False:
+                # if wide sticker
+                if pilimage.size[0] > pilimage.size[1]:
+                    os.system("brother_ql --model {} --backend pyusb --printer {} print -d --label 62 --rotate 90 {}".format(printer_model, printer_url, random_sticker["filepath"]))
+                else:
+                    os.system("brother_ql --model {} --backend pyusb --printer {} print -d --label 62 {}".format(printer_model, printer_url, random_sticker["filepath"]))
+            else:
                 os.system("brother_ql --model {} --backend pyusb --printer {} print -d --label 62 {}".format(printer_model, printer_url, random_sticker["filepath"]))
 
 if __name__ == '__main__':

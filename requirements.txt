@@ -1,2 +1,3 @@
 pyusb
 brother_ql
+Pillow
