@@ -101,3 +101,7 @@ The library that this script depends on supports the following printers, but the
 
 * Print individual sticker 
 python stickers.py printimages Folder\LittleSusie.cleaned.jpg --printer-url usb://0x04f9:0x209b --printer-model QL-800 --sticker-count 2
+
+### Disable Autorotate
+
+Wide stickers are auto-rotated 90 degrees. If you need to disable this, add the flag `--disable-autorotate` to the command.
