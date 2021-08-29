@@ -140,22 +140,23 @@ class PrintFolder(object):
         parser.add_argument('--dry-run', dest='dry_run', action='store_true')
         parser.add_argument('--printer-url', dest='printer_url', help='USB path of the printer')
         parser.add_argument('--printer-model', dest='printer_model', help='name of the Brother printer i.e.: QL-800')
-        parser.add_argument('--file-extension', dest='file_extension', help='walk dirs to find these types, default is jpg')
         parser.add_argument('--sticker-count', dest='sticker_count', help='number of stickers to print in job')
         parser.add_argument('--disable-autorotate', dest='disable_autorotate', action='store_true', help='wide stickers are printed 90 degrees CCW by default')
         parser.add_argument('--print-at-least', nargs='*', dest='print_at_least', help='print at least this number of this sticker')
         parser.add_argument('--print-extra', nargs='*', dest='print_extra', help='print extra this number of this sticker')
         parser.set_defaults(dry_run=False)
         parser.set_defaults(disable_autorotate=False)
-        parser.set_defaults(file_extension='jpg')
         args = parser.parse_args(sys.argv[2:])
         print('Running PrintFolder.start, args: {}'.format(repr(args)))
 
         printfolder_files = []
         paths = []
+        supported_exts = ['jpg', 'jpeg', 'png', 'tiff', 'tif']
+
         for directory in args.dirs:
-            files = walk_folder(directory, args.file_extension)
-            paths.extend(files)
+            for ext in supported_exts:
+                files = walk_folder(directory, ext)
+                paths.extend(files)
         # base_options = copy.deepcopy(args)
         for path in paths:
             args_dict = args.__dict__
@@ -188,8 +189,8 @@ class PrintFolder(object):
 
         sorted_array = sorted(printfolder_files, key=lambda x: x['filename'], reverse=False)
         if args.dry_run is False:
-            if args.file_extension == 'jpg':
-                self._printfolder_images(sorted_array, int(args.sticker_count), args.disable_autorotate, args.printer_model, args.printer_url, args.print_at_least, args.print_extra)
+            # if args.file_extension == 'jpg':
+            self._printfolder_images(sorted_array, int(args.sticker_count), args.disable_autorotate, args.printer_model, args.printer_url, args.print_at_least, args.print_extra)
         else:
             print('dry_run sorted_array: {} stickers'.format(len(sorted_array)))
 
@@ -287,12 +288,10 @@ class PrintImages(object):
         parser.add_argument('--dry-run', dest='dry_run', action='store_true')
         parser.add_argument('--printer-url', dest='printer_url', help='USB path of the printer i.e: usb://0x04f9:0x209b')
         parser.add_argument('--printer-model', dest='printer_model', help='name of the Brother printer i.e.: QL-800')
-        parser.add_argument('--file-extension', dest='file_extension', help='walk dirs to find these types, default is jpg')
         parser.add_argument('--sticker-count', dest='sticker_count', help='number of stickers to print in job')
         parser.add_argument('--disable-autorotate', dest='disable_autorotate', action='store_true', help='wide stickers are printed 90 degrees CCW')
         parser.set_defaults(dry_run=False)
         parser.set_defaults(disable_autorotate=False)
-        parser.set_defaults(file_extension='jpg')
         args = parser.parse_args(sys.argv[2:])
         print('Running PrintImages.start, args: {}'.format(repr(args)))
 
@@ -320,8 +319,8 @@ class PrintImages(object):
             printimages_files.append(options)
         sorted_array = sorted(printimages_files, key=lambda x: x['filename'], reverse=False)
         if args.dry_run is False:
-            if args.file_extension == 'jpg':
-                self._printimages_images(sorted_array, int(args.sticker_count), args.disable_autorotate, args.printer_model, args.printer_url)
+            # if args.file_extension == 'jpg':
+            self._printimages_images(sorted_array, int(args.sticker_count), args.disable_autorotate, args.printer_model, args.printer_url)
         else:
             print('dry_run sorted_array: {} stickers'.format(len(sorted_array)))
 
