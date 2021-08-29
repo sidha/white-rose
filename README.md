@@ -68,6 +68,15 @@ The library that this script depends on supports the following printers, but the
 * QL-1050
 * QL-1060N
 
+### Supported file extensions:
+
+* jpg
+* jpeg
+* png
+* tif
+* tiff
+
+
 ## Examples
 
 ## PRINT FOLDER
