@@ -75,6 +75,7 @@ The library that this script depends on supports the following printers, but the
 * png
 * tif
 * tiff
+* gif
 
 
 ## Examples
