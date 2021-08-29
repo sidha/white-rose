@@ -151,7 +151,7 @@ class PrintFolder(object):
 
         printfolder_files = []
         paths = []
-        supported_exts = ['jpg', 'jpeg', 'png', 'tiff', 'tif']
+        supported_exts = ['jpg', 'jpeg', 'png', 'tiff', 'tif', 'gif']
 
         for directory in args.dirs:
             for ext in supported_exts:
