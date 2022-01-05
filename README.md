@@ -22,6 +22,29 @@ On Windows: download `libusb-win32-devel-filter-1.2.6.0.exe` from https://source
 > pip install -r requirements.txt
 ```
 
+### LINUX -- usb.core.USBError: [Errno 13] Access denied (insufficient permissions)
+
+In a Terminal, lsusb will show your printer such as:
+`> lsusb`
+
+`Bus 006 Device 002: ID 04f9:2028 Brother Industries, Ltd QL-570 P-touch Label Printer`
+
+In this case the Vendor ID (manufacturer) for Brother is "04f9"
+
+SOLUTION:
+in `/etc/udev/rules.d/01-usbBrother.rules`
+
+add:
+
+`SUBSYSTEM=="usb", ATTRS{idVendor}=="04f9", MODE="0666"`
+
+then:
+
+>> DISCONNECT PRINTER FROM USB
+>> REBOOT
+>> CONNECT PRINTER TO USB
+
+
 ### Windows Install
 
 Follow instructions here to install venv on Windows:
